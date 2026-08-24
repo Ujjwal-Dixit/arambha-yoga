@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const values = [
   {
     icon: "🌿",
@@ -59,6 +61,25 @@ export default function About() {
               <blockquote className="font-display text-xl italic text-forest-mid">
                 &ldquo;Wellness begins here — for you, for life.&rdquo;
               </blockquote>
+            </div>
+
+            <div className="pt-2">
+              <Link
+                href="/teachers"
+                className="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-forest text-white font-medium tracking-wide hover:bg-forest-mid transition-colors shadow-lg shadow-forest/20"
+              >
+                Meet Our Teachers
+                <svg
+                  className="w-4 h-4 transition-transform group-hover:translate-x-0.5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
             </div>
           </div>
 

@@ -1,10 +1,14 @@
 import Image from "next/image";
+import Link from "next/link";
+import { site } from "@/lib/site";
 
 const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/#home" },
+  { label: "About", href: "/#about" },
+  { label: "Services", href: "/#services" },
+  { label: "Teachers", href: "/teachers" },
+  { label: "Teacher Courses", href: "/teacher-courses" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 const services = [
@@ -26,12 +30,12 @@ export default function Footer() {
           {/* Brand */}
           <div className="md:col-span-2 space-y-4">
             <Image
-              src="/logo.jpg"
+              src="/logo-mark-light.png"
               alt="Arambha Yoga & Wellness"
-              width={56}
-              height={56}
-              className="h-14 w-14 object-contain rounded-full bg-white/15 p-1.5"
-              style={{ filter: "brightness(1.1)" }}
+              width={320}
+              height={248}
+              sizes="(max-width: 768px) 82px, 103px"
+              className="h-16 md:h-20 w-auto object-contain"
             />
             <p className="text-white/60 text-sm leading-relaxed max-w-xs">
               Wellness begins here — for you, for life. A sanctuary of yoga and
@@ -42,7 +46,7 @@ export default function Footer() {
             </p>
             <div className="flex gap-3 pt-2">
               <a
-                href="https://www.instagram.com/arambha.yoga"
+                href={site.instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
@@ -57,9 +61,9 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="tel:9553809135"
+                href={site.phoneHref}
                 className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
-                aria-label="Call us"
+                aria-label={`Call us on ${site.phoneDisplay}`}
               >
                 <svg
                   className="w-4 h-4"
@@ -86,12 +90,12 @@ export default function Footer() {
             <ul className="space-y-2.5">
               {navLinks.map((l) => (
                 <li key={l.href}>
-                  <a
+                  <Link
                     href={l.href}
                     className="text-sm text-white/70 hover:text-white transition-colors"
                   >
                     {l.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -105,12 +109,12 @@ export default function Footer() {
             <ul className="space-y-2.5">
               {services.map((s) => (
                 <li key={s}>
-                  <a
-                    href="#services"
+                  <Link
+                    href="/#services"
                     className="text-sm text-white/70 hover:text-white transition-colors"
                   >
                     {s}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

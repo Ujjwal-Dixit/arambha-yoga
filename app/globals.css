@@ -30,11 +30,6 @@ section[id] {
   scroll-margin-top: 72px;
 }
 
-@keyframes ticker {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
 .font-display {
   font-family: var(--font-playfair), Georgia, serif;
 }
