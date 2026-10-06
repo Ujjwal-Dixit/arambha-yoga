@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import TeacherTraining from "@/components/TeacherTraining";
 import Footer from "@/components/Footer";
@@ -28,23 +27,24 @@ export default function TeacherCoursesPage() {
           />
 
           <div className="relative max-w-6xl mx-auto px-6 text-center">
-            <nav className="mb-6 text-xs text-charcoal/40" aria-label="Breadcrumb">
-              <Link href="/" className="hover:text-forest transition-colors">
-                Home
-              </Link>
-              <span className="mx-2">/</span>
-              <span className="text-charcoal/60">Teacher Courses</span>
-            </nav>
-
             <Image
               src="/rys-200.png"
               alt="Yoga Alliance Registered Yoga School — RYS 200"
               width={400}
               height={400}
               sizes="(max-width: 768px) 112px, 144px"
-              className="h-28 w-28 md:h-36 md:w-36 mx-auto mb-6 object-contain"
+              className="h-28 w-28 md:h-36 md:w-36 mx-auto mb-3 object-contain"
               priority
             />
+
+            <div className="mb-6">
+              <p className="text-sm font-semibold text-forest">
+                International Yoga Alliance
+              </p>
+              <p className="text-xs text-charcoal/60 mt-0.5">
+                Registry ID: 661801
+              </p>
+            </div>
 
             <p className="text-xs font-medium tracking-[0.2em] uppercase text-sage mb-3">
               Registered Yoga School

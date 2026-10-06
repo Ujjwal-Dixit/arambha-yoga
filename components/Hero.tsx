@@ -21,10 +21,9 @@ export default function Hero() {
         <div className="flex justify-center mb-1 md:mb-2">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/logo.jpg"
+            src="/logo-v2.jpg"
             alt="Arambha Yoga & Wellness"
             className="h-40 w-40 md:h-56 lg:h-64 md:w-56 lg:w-64 object-contain mix-blend-multiply"
-            style={{ filter: "brightness(1.6)" }}
           />
         </div>
 

@@ -30,7 +30,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="md:col-span-2 space-y-4">
             <Image
-              src="/logo-mark-light.png"
+              src="/logo-mark-light-v2.png"
               alt="Arambha Yoga & Wellness"
               width={320}
               height={248}

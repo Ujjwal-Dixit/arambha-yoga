@@ -117,22 +117,6 @@ export default function Contact() {
                   </div>
                 </div>
                 <div className="flex gap-4 items-start">
-                  <div className="mt-1 w-9 h-9 rounded-full bg-sage-light/50 flex items-center justify-center shrink-0">
-                    <WhatsAppIcon className="w-4 h-4 text-[#25D366]" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-forest text-sm mb-0.5">WhatsApp</p>
-                    <a
-                      href={site.whatsappHref}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-charcoal/65 text-sm hover:text-forest transition-colors"
-                    >
-                      {`Message us on ${site.phoneDisplay}`}
-                    </a>
-                  </div>
-                </div>
-                <div className="flex gap-4 items-start">
                   <div className="mt-1 w-9 h-9 rounded-full bg-sage-light/50 flex items-center justify-center shrink-0">📞</div>
                   <div>
                     <p className="font-medium text-forest text-sm mb-0.5">Phone</p>

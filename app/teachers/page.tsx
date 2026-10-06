@@ -21,14 +21,6 @@ export default function TeachersPage() {
           <div className="absolute -bottom-10 left-10 w-80 h-80 rounded-full bg-earth/15 blur-3xl" aria-hidden="true" />
 
           <div className="relative max-w-6xl mx-auto px-6 text-center">
-            <nav className="mb-6 text-xs text-charcoal/40" aria-label="Breadcrumb">
-              <Link href="/" className="hover:text-forest transition-colors">
-                Home
-              </Link>
-              <span className="mx-2">/</span>
-              <span className="text-charcoal/60">Teachers</span>
-            </nav>
-
             <p className="text-xs font-medium tracking-[0.2em] uppercase text-sage mb-3">
               Our Team
             </p>

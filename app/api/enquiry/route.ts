@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { sendEnquiryToStudio } from "@/lib/whatsapp";
+import { sendEnquiryToStudio } from "@/lib/telegram";
 import { formatDate, getDayType, slotsFor, todayInIST } from "@/lib/schedule";
 
 export const runtime = "nodejs";
@@ -62,6 +62,9 @@ export async function POST(request: Request) {
   }
   if (phone && !/^[+\d][\d\s()-]{6,19}$/.test(phone)) {
     return bad("That phone number doesn't look right.");
+  }
+  if (service.length > 80) {
+    return bad("Please choose a class from the list.");
   }
   if (message.length > 500) {
     return bad("Please keep your message under 500 characters.");

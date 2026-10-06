@@ -55,7 +55,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/#home" className="flex items-center gap-2 shrink-0">
           <Image
-            src="/logo-mark.png"
+            src="/logo-mark-v2.png"
             alt="Arambha Yoga & Wellness"
             width={320}
             height={248}
