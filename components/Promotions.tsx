@@ -5,7 +5,7 @@ export default async function Promotions() {
   const events = await getLivePromotions();
 
   // Nothing running right now — leave the section out rather than show an
-  // empty "What's On" header.
+  // empty "Upcoming Classes" header.
   if (events.length === 0) return null;
 
   return (
@@ -14,10 +14,9 @@ export default async function Promotions() {
         {/* Section label */}
         <div className="flex items-center gap-3 mb-6">
           <span className="text-xs font-semibold tracking-[0.2em] uppercase text-sage">
-            What&apos;s On
+            Upcoming Classes
           </span>
           <div className="flex-1 h-px bg-parchment" />
-          <span className="text-xs text-charcoal/40">Promotions &amp; Events</span>
         </div>
 
         {/* Cards */}

@@ -1,8 +1,10 @@
-export default function Hero() {
+import HeroOffers, { type OfferPoster } from "@/components/HeroOffers";
+
+export default function Hero({ offers }: { offers: OfferPoster[] }) {
   return (
     <section
       id="home"
-      className="relative flex items-center justify-center overflow-hidden py-8 md:py-14"
+      className="relative flex items-center justify-center overflow-hidden pt-24 pb-10 md:pt-28 md:pb-14 lg:pb-12 lg:min-h-svh"
     >
       {/* Layered background */}
       <div className="absolute inset-0 bg-gradient-to-br from-cream via-white to-sage-light/30" />
@@ -14,66 +16,59 @@ export default function Hero() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-forest/5" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-forest/5" />
 
-      {/* Content */}
-      <div className="relative text-center px-6 max-w-4xl mx-auto mt-2">
+      {/* Content — offers sit beside the text from tablet width up, below it on phones */}
+      <div className="relative w-full max-w-6xl mx-auto px-6 mt-2 grid md:grid-cols-[1fr_auto] items-center gap-10 lg:gap-16">
+        <div>
+          {/* Motto badge */}
+          <p className="inline-block mb-3 md:mb-5 px-4 py-1.5 rounded-full text-xs font-medium tracking-[0.2em] uppercase text-forest-mid bg-sage-light/50 border border-sage/30">
+            Awake · Align · Arise
+          </p>
 
-        {/* Logo */}
-        <div className="flex justify-center mb-1 md:mb-2">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/logo-v2.jpg"
-            alt="Arambha Yoga & Wellness"
-            className="h-40 w-40 md:h-56 lg:h-64 md:w-56 lg:w-64 object-contain mix-blend-multiply"
-          />
-        </div>
+          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-forest leading-tight mb-4 md:mb-5">
+            Wellness Begins
+            <span className="block text-forest-mid">Here</span>
+          </h1>
 
-        {/* Motto badge */}
-        <p className="inline-block mb-3 md:mb-5 px-4 py-1.5 rounded-full text-xs font-medium tracking-[0.2em] uppercase text-forest-mid bg-sage-light/50 border border-sage/30">
-          Awake · Align · Arise
-        </p>
+          <p className="text-base md:text-lg text-charcoal/70 max-w-xl leading-relaxed mb-6 md:mb-8">
+            For you, for life. Discover transformative yoga and wellness practices
+            rooted in tradition, guided by compassion.
+          </p>
 
-        <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-forest leading-tight mb-4 md:mb-5">
-          Wellness Begins
-          <span className="block text-forest-mid">Here</span>
-        </h1>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <a
+              href="#services"
+              className="px-7 py-3 rounded-full bg-forest text-white font-medium tracking-wide hover:bg-forest-mid transition-colors shadow-lg shadow-forest/20"
+            >
+              Explore Classes
+            </a>
+            <a
+              href="#contact"
+              className="px-7 py-3 rounded-full border-2 border-forest text-forest font-medium tracking-wide hover:bg-forest hover:text-white transition-colors"
+            >
+              Enquire Now
+            </a>
+          </div>
 
-        <p className="text-base md:text-lg text-charcoal/70 max-w-xl mx-auto leading-relaxed mb-6 md:mb-8">
-          For you, for life. Discover transformative yoga and wellness practices
-          rooted in tradition, guided by compassion.
-        </p>
-
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <a
-            href="#services"
-            className="px-7 py-3 rounded-full bg-forest text-white font-medium tracking-wide hover:bg-forest-mid transition-colors shadow-lg shadow-forest/20"
-          >
-            Explore Classes
-          </a>
-          <a
-            href="#contact"
-            className="px-7 py-3 rounded-full border-2 border-forest text-forest font-medium tracking-wide hover:bg-forest hover:text-white transition-colors"
-          >
-            Enquire Now
-          </a>
-        </div>
-
-        {/* Stats row */}
-        <div className="mt-8 md:mt-12 grid grid-cols-3 gap-4 max-w-lg mx-auto">
-          {[
-            { value: "14+", label: "Yoga Styles" },
-            { value: "∞", label: "Wellness Journey" },
-            { value: "100%", label: "Dedication" },
-          ].map((s) => (
-            <div key={s.label} className="text-center">
-              <div className="font-display text-2xl md:text-3xl font-bold text-forest">
-                {s.value}
+          {/* Stats row */}
+          <div className="mt-8 md:mt-10 grid grid-cols-3 gap-4 max-w-lg">
+            {[
+              { value: "14+", label: "Yoga Styles" },
+              { value: "∞", label: "Wellness Journey" },
+              { value: "100%", label: "Dedication" },
+            ].map((s) => (
+              <div key={s.label}>
+                <div className="font-display text-2xl md:text-3xl font-bold text-forest">
+                  {s.value}
+                </div>
+                <div className="text-xs text-charcoal/50 mt-1 tracking-wide uppercase">
+                  {s.label}
+                </div>
               </div>
-              <div className="text-xs text-charcoal/50 mt-1 tracking-wide uppercase">
-                {s.label}
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
+
+        <HeroOffers offers={offers} />
       </div>
     </section>
   );

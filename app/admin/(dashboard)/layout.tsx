@@ -2,33 +2,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getAdminEmail } from "@/lib/auth";
-import { getAllPromotions } from "@/lib/db/promotions";
-import { todayInIST } from "@/lib/schedule";
 import { SignOutButton } from "@/components/admin/AuthButtons";
-import PromotionsManager, { type AdminPromotion } from "@/components/admin/PromotionsManager";
+import AdminTabs from "@/components/admin/AdminTabs";
 
-export const dynamic = "force-dynamic";
-
-export default async function AdminPage() {
+/**
+ * Header and tabs for every dashboard page. The sign-in check here is for
+ * navigation only — each page and each server action checks again, since a
+ * layout doesn't re-render on every navigation.
+ */
+export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const email = await getAdminEmail();
   if (!email) redirect("/admin/login");
-
-  // Plain, serialisable objects only — the client component gets exactly the
-  // fields the form edits.
-  const promotions: AdminPromotion[] = (await getAllPromotions()).map((p) => ({
-    id: p.id,
-    tag: p.tag,
-    tagColor: p.tagColor,
-    title: p.title,
-    description: p.description,
-    dateText: p.dateText,
-    timeText: p.timeText,
-    icon: p.icon,
-    highlight: p.highlight,
-    published: p.published,
-    startsOn: p.startsOn ?? "",
-    endsOn: p.endsOn ?? "",
-  }));
 
   return (
     <>
@@ -50,21 +34,16 @@ export default async function AdminPage() {
           </div>
           <div className="flex items-center gap-4 sm:gap-5 shrink-0">
             <span className="hidden md:inline text-xs text-charcoal/45 truncate max-w-56">{email}</span>
-            <Link
-              href="/"
-              target="_blank"
-              className="text-sm font-medium text-forest hover:text-sage transition-colors"
-            >
+            <Link href="/" target="_blank" className="text-sm font-medium text-forest hover:text-sage transition-colors">
               View site ↗
             </Link>
             <SignOutButton />
           </div>
         </div>
+        <AdminTabs />
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 md:py-12">
-        <PromotionsManager promotions={promotions} today={todayInIST()} />
-      </main>
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 md:py-12">{children}</main>
     </>
   );
 }

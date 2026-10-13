@@ -16,7 +16,7 @@ export default function TeacherCoursesPage() {
       <Navbar />
       <main>
         {/* Page header */}
-        <section className="relative overflow-hidden bg-cream pt-32 pb-12 md:pt-40 md:pb-16">
+        <section className="relative overflow-hidden bg-cream pt-24 pb-8">
           <div
             className="absolute top-10 right-10 w-72 h-72 rounded-full bg-sage/10 blur-3xl"
             aria-hidden="true"
@@ -27,29 +27,30 @@ export default function TeacherCoursesPage() {
           />
 
           <div className="relative max-w-6xl mx-auto px-6 text-center">
-            <Image
-              src="/rys-200.png"
-              alt="Yoga Alliance Registered Yoga School — RYS 200"
-              width={400}
-              height={400}
-              sizes="(max-width: 768px) 112px, 144px"
-              className="h-28 w-28 md:h-36 md:w-36 mx-auto mb-3 object-contain"
-              priority
-            />
-
-            <div className="mb-6">
-              <p className="text-sm font-semibold text-forest">
-                International Yoga Alliance
-              </p>
-              <p className="text-xs text-charcoal/60 mt-0.5">
-                Registry ID: 661801
-              </p>
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <Image
+                src="/rys-200.png"
+                alt="Yoga Alliance Registered Yoga School — RYS 200"
+                width={400}
+                height={400}
+                sizes="(max-width: 768px) 80px, 96px"
+                className="h-20 w-20 md:h-24 md:w-24 object-contain"
+                priority
+              />
+              <div className="text-left">
+                <p className="text-sm font-semibold text-forest">
+                  International Yoga Alliance
+                </p>
+                <p className="text-xs text-charcoal/60 mt-0.5">
+                  Registry ID: 661801
+                </p>
+              </div>
             </div>
 
-            <p className="text-xs font-medium tracking-[0.2em] uppercase text-sage mb-3">
+            <p className="text-xs font-medium tracking-[0.2em] uppercase text-sage mb-2">
               Registered Yoga School
             </p>
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-forest leading-tight mb-5">
+            <h1 className="font-display text-4xl md:text-5xl font-bold text-forest leading-tight mb-4">
               Teacher Courses
             </h1>
             <p className="text-charcoal/60 max-w-xl mx-auto leading-relaxed">

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { sendEnquiryToStudio } from "@/lib/telegram";
+import { getSchedule } from "@/lib/db/content";
 import { formatDate, getDayType, slotsFor, todayInIST } from "@/lib/schedule";
 
 export const runtime = "nodejs";
@@ -79,9 +80,18 @@ export async function POST(request: Request) {
 
     const dayType = getDayType(date);
     if (!dayType) return bad("Invalid date.");
-    if (dayType === "sunday") return bad("We don't run classes on Sundays.");
-    if (timeSlot && !slotsFor(dayType).includes(timeSlot)) {
-      return bad("That time slot isn't available on the date you picked.");
+    let slots: string[] | null = null;
+    try {
+      slots = slotsFor(await getSchedule(), dayType);
+    } catch (err) {
+      // Don't lose a lead over the timetable: skip the slot checks instead.
+      console.error("[enquiry] couldn't load the timetable:", err);
+    }
+    if (slots) {
+      if (slots.length === 0) return bad("We don't run classes on that day.");
+      if (timeSlot && !slots.includes(timeSlot)) {
+        return bad("That time slot isn't available on the date you picked.");
+      }
     }
     preferred = timeSlot ? `${formatDate(date)} — ${timeSlot}` : formatDate(date);
   }

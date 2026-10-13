@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* Large, tall displays (e.g. 27" monitors). Width alone isn't enough: a
+   1080p monitor is wide but no taller than a laptop. */
+@custom-variant big (@media (min-width: 1800px) and (min-height: 1100px));
+
 @theme {
   --color-forest: #1a4731;
   --color-forest-dark: #0f2d1e;
@@ -26,8 +30,18 @@ body {
   font-family: var(--font-inter), system-ui, sans-serif;
 }
 
+/* Navbar height (h-18), in rem so it tracks the big-screen scaling below. */
 section[id] {
-  scroll-margin-top: 72px;
+  scroll-margin-top: 4.5rem;
+}
+
+/* Large, tall displays: scale the whole site up a step. Text, spacing and
+   container widths are all rem-based, so this one rule keeps every page in
+   proportion. Same query as the big variant. */
+@media (min-width: 1800px) and (min-height: 1100px) {
+  html {
+    font-size: 112.5%;
+  }
 }
 
 .font-display {

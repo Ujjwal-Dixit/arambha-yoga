@@ -20,10 +20,10 @@ const values = [
 
 export default function About() {
   return (
-    <section id="about" className="py-12 md:py-20 bg-cream">
+    <section id="about" className="py-12 md:py-16 bg-cream">
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
-        <div className="text-center mb-8 md:mb-12">
+        <div className="text-center mb-8 md:mb-10">
           <p className="text-xs font-medium tracking-[0.2em] uppercase text-sage mb-3">
             Our Story
           </p>

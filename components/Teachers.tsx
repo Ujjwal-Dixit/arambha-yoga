@@ -76,7 +76,7 @@ export const teachers: Teacher[] = [
 
 export default function Teachers() {
   return (
-    <section id="teachers" className="py-12 md:py-20 bg-white">
+    <section id="teachers" className="py-12 md:py-16 bg-white">
       <div className="max-w-6xl mx-auto px-6 space-y-16 md:space-y-24">
         {teachers.map((t, i) => {
           const reversed = i % 2 === 1;
@@ -88,7 +88,7 @@ export default function Teachers() {
               }`}
             >
               {/* Portrait */}
-              <div className="relative w-full max-w-[280px] mx-auto md:mx-0 md:w-[320px] md:max-w-none shrink-0">
+              <div className="relative w-full max-w-[17.5rem] mx-auto md:mx-0 md:w-[20rem] md:max-w-none shrink-0">
                 <div
                   className={`absolute -inset-3 rounded-3xl border border-sage/25 ${
                     reversed ? "rotate-2" : "-rotate-2"
@@ -120,7 +120,7 @@ export default function Teachers() {
                 <div className="flex flex-wrap gap-x-8 gap-y-3 pb-5 mb-5 border-b border-parchment">
                   {t.meta.map((m) => (
                     <div key={m.label}>
-                      <div className="text-[10px] font-semibold tracking-widest uppercase text-charcoal/40 mb-0.5">
+                      <div className="text-[0.625rem] font-semibold tracking-widest uppercase text-charcoal/40 mb-0.5">
                         {m.label}
                       </div>
                       <div className="text-sm font-medium text-forest">
@@ -142,7 +142,7 @@ export default function Teachers() {
                 {/* Specialties */}
                 {t.specialties && (
                   <div className="mb-6">
-                    <p className="text-[10px] font-semibold tracking-widest uppercase text-charcoal/40 mb-2.5">
+                    <p className="text-[0.625rem] font-semibold tracking-widest uppercase text-charcoal/40 mb-2.5">
                       Specialities
                     </p>
                     <div className="flex flex-wrap gap-2">

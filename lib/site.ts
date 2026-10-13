@@ -41,4 +41,10 @@ export const site = {
 
   instagramHandle: "@arambha.yoga",
   instagramUrl: "https://www.instagram.com/arambha.yoga",
+
+  /** Studio address, one entry per display line. */
+  addressLines: ["401 Raghava Plaza", "Kondapur, Hyderabad"],
+
+  /** Google Maps link to the studio's exact location. */
+  mapsUrl: "https://maps.app.goo.gl/36i1rCxQKWAXtYze9",
 } as const;

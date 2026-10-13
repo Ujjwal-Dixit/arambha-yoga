@@ -2,103 +2,23 @@
 
 import { useState, useEffect } from "react";
 
-// Real Google reviews for Arambha Yoga & Wellness.
-// Entries marked ABRIDGED were truncated by Google's "… More" link in the
-// source screenshots — only the visible text is reproduced here, trimmed to the
-// last complete sentence. Paste the full text from Google to complete them.
+/** A student review, copied from Google and managed from the admin dashboard. */
+export type Review = { name: string; context: string; quote: string };
 
-type Testimonial = {
-  name: string;
-  initials: string;
-  color: string;
-  context?: string;
-  quote: string;
-};
-
-const testimonials: Testimonial[] = [
-  {
-    name: "Sandeepa Kasaraneni",
-    initials: "SK",
-    color: "bg-sage/20 text-forest",
-    context: "Beginner",
-    quote:
-      "I joined Arambha Yoga & Wellness as a beginner. I'm blown away by Giri sir's yoga training! He brings a fresh vibe to every session, and his encouragement to push past our limits is just what is needed. I was skeptical at first, thinking yoga was all about slow movements, but he's shown me that it's actually about growth through challenge. As a newbie, I still get stuck in some poses, but his no-pressure approach keeps me coming back for more. Now, I'm hooked on his morning classes — they're the perfect way to kickstart my day! Highly recommend to have positive energy in you!",
-  },
-  {
-    name: "Bhargavi Boppana",
-    initials: "BB",
-    color: "bg-earth/30 text-earth-dark",
-    // ABRIDGED
-    quote:
-      "I have been training at Arambha Yoga Studio for the past 20 days, and it has been such a positive experience. Giri Sir is extremely patient and gives individual attention to everyone, carefully correcting our posture and form.",
-  },
-  {
-    name: "Shravya Anchuru",
-    initials: "SA",
-    color: "bg-forest/10 text-forest",
-    context: "Postnatal practice",
-    quote:
-      "I joined Arambha Yoga & Wellness during my postpartum, and it has truly made a positive difference in my recovery and overall lifestyle. Under the guidance of Giri Sir, I've experienced a wonderful improvement in strength, flexibility, and mental well-being. The sessions are thoughtfully planned, focusing on gentle yet effective practices that suit every individual's pace. Giri Sir's patience, knowledge, and personalized attention have helped me rebuild my confidence and energy after delivery. I feel more balanced, calm, and active now — and yoga has become an important part of my daily life. Highly recommended to all new moms and anyone seeking mindful wellness.",
-  },
-  {
-    name: "Ravi L",
-    initials: "RL",
-    color: "bg-sage-light/40 text-forest-mid",
-    // ABRIDGED
-    quote:
-      "I am having an amazing experience at Arambha Yoga & Wellness! From the moment I walked in, I felt a beautiful sense of calm and care. A special thanks to Yoga guru Mr. Giri.",
-  },
-  {
-    name: "Padmaja Doddi",
-    initials: "PD",
-    color: "bg-parchment text-earth-dark",
-    context: "9 months practising",
-    quote:
-      "It's more than 9 months I'm taking classes provided by Giri sir and they're really commendable and worth it — it makes me motivated to come on my mat and go for classes regularly. When a guru puts his efforts, why not the student too? That's what made me push my boundaries and be regular to his classes. The best part about the classes here is the unique workout format, so well designed that it never makes you feel bored. Thank you sir for motivating me to come for classes regularly — I genuinely feel like I'm giving 1 hr daily in my life to myself with no regrets.",
-  },
-  {
-    name: "Gopinath Samal",
-    initials: "GS",
-    color: "bg-forest/10 text-forest",
-    context: "Beginner",
-    // ABRIDGED
-    quote:
-      "As a beginner, I had a wonderful learning experience. The instructors are knowledgeable, patient, and supportive, creating a comfortable environment to learn and grow. I highly recommend this institution to anyone beginning their yoga journey.",
-  },
-  {
-    name: "Sarbani Bhattacharjee",
-    initials: "SB",
-    color: "bg-sage/20 text-forest",
-    context: "Beginner",
-    quote:
-      "Training with Mr. Giri has truly changed my view of yoga. He brings something new to every session and pushes us just enough to step out of our comfort zone. I used to think yoga was slow, but he showed me that real progress comes when you challenge yourself. As a beginner, I still struggle with some postures, but he encourages me to keep trying without pressure. I now look forward to my morning classes so much that I travel every day from Financial District to Arambha just to attend. Truly worth it! Highly recommended!",
-  },
-  {
-    name: "Manish",
-    initials: "M",
-    color: "bg-earth/30 text-earth-dark",
-    // ABRIDGED
-    quote:
-      "I joined Arambha Yoga & Wellness just a month ago, and I already can't imagine my mornings without it. From day one, the environment felt calm, welcoming, and completely judgment-free.",
-  },
-  {
-    name: "Rohit Kashyap",
-    initials: "RK",
-    color: "bg-sage-light/40 text-forest-mid",
-    // ABRIDGED
-    quote:
-      "I joined Arambha for best teachers and flexible timing. The flexible timing at Arambha is perfect for my unpredictable work schedule. They offer early morning, evening, and weekend sessions.",
-  },
-  {
-    name: "Satya Chaitanya",
-    initials: "SC",
-    color: "bg-parchment text-earth-dark",
-    context: "Local Guide",
-    // ABRIDGED
-    quote:
-      "I joined a month ago and it has been a wonderful experience. The instructor is really good, using a beautiful combination of Hatha, Vinyasa, Ashtanga-Power, and Restorative yoga.",
-  },
+// Avatar colours, assigned in turn so neighbouring cards differ.
+const AVATAR_COLORS = [
+  "bg-sage/20 text-forest",
+  "bg-earth/30 text-earth-dark",
+  "bg-forest/10 text-forest",
+  "bg-sage-light/40 text-forest-mid",
+  "bg-parchment text-earth-dark",
 ];
+
+function initials(name: string): string {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  const letters = parts.length > 1 ? parts[0][0] + parts[parts.length - 1][0] : (parts[0] ?? "?")[0];
+  return letters.toUpperCase();
+}
 
 function Stars() {
   return (
@@ -155,7 +75,38 @@ function Arrow({
   );
 }
 
-export default function Testimonials() {
+// Long reviews are clamped so one essay-length review doesn't stretch every
+// card in the row to fill the screen.
+const CLAMP_AFTER = 260;
+
+function Quote({ text }: { text: string }) {
+  const [open, setOpen] = useState(false);
+  const long = text.length > CLAMP_AFTER;
+
+  return (
+    <div className="flex-1">
+      <blockquote
+        className={`text-[0.9375rem] text-charcoal/70 leading-relaxed ${
+          long && !open ? "line-clamp-6" : ""
+        }`}
+      >
+        {text}
+      </blockquote>
+      {long && (
+        <button
+          type="button"
+          onClick={() => setOpen(!open)}
+          aria-expanded={open}
+          className="mt-2 text-sm font-medium text-forest hover:text-sage transition-colors"
+        >
+          {open ? "Show less" : "Read more"}
+        </button>
+      )}
+    </div>
+  );
+}
+
+export default function Testimonials({ reviews }: { reviews: Review[] }) {
   const [index, setIndex] = useState(0);
   const [perView, setPerView] = useState(3);
 
@@ -171,7 +122,7 @@ export default function Testimonials() {
     return () => window.removeEventListener("resize", compute);
   }, []);
 
-  const maxIndex = Math.max(0, testimonials.length - perView);
+  const maxIndex = Math.max(0, reviews.length - perView);
   // Clamp during render rather than in an effect: a resize that shrinks the
   // track can never leave the carousel scrolled past the last card.
   const active = Math.min(index, maxIndex);
@@ -179,11 +130,14 @@ export default function Testimonials() {
   const prev = () => setIndex(Math.max(0, active - 1));
   const next = () => setIndex(Math.min(maxIndex, active + 1));
 
+  // Nothing published yet: leave the section out.
+  if (reviews.length === 0) return null;
+
   return (
-    <section className="py-12 md:py-20 bg-cream">
+    <section className="py-12 md:py-16 bg-cream">
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
-        <div className="text-center mb-8 md:mb-12">
+        <div className="text-center mb-8 md:mb-10">
           <p className="text-xs font-medium tracking-[0.2em] uppercase text-sage mb-3">
             What Our Students Say
           </p>
@@ -204,18 +158,18 @@ export default function Testimonials() {
               className="flex -mx-3 transition-transform duration-500 ease-out"
               style={{ transform: `translateX(-${active * (100 / perView)}%)` }}
             >
-              {testimonials.map((t) => (
+              {reviews.map((t, i) => (
                 <div
-                  key={t.name}
+                  key={`${i}-${t.name}`}
                   className="shrink-0 w-full sm:w-1/2 lg:w-1/3 px-3"
                 >
                   <figure className="h-full flex flex-col bg-white rounded-2xl p-7 border border-parchment shadow-sm">
                     <figcaption className="flex items-center gap-3 mb-4">
                       <div
-                        className={`w-11 h-11 rounded-full flex items-center justify-center text-sm font-semibold shrink-0 ${t.color}`}
+                        className={`w-11 h-11 rounded-full flex items-center justify-center text-sm font-semibold shrink-0 ${AVATAR_COLORS[i % AVATAR_COLORS.length]}`}
                         aria-hidden="true"
                       >
-                        {t.initials}
+                        {initials(t.name)}
                       </div>
                       <div className="min-w-0">
                         <p className="font-semibold text-forest text-sm truncate">
@@ -231,14 +185,12 @@ export default function Testimonials() {
 
                     <div className="flex items-center justify-between gap-3 pb-5 mb-5 border-b border-parchment">
                       <Stars />
-                      <span className="text-[10px] font-semibold tracking-widest uppercase text-charcoal/30">
+                      <span className="text-[0.625rem] font-semibold tracking-widest uppercase text-charcoal/30">
                         Google Review
                       </span>
                     </div>
 
-                    <blockquote className="flex-1 text-[15px] text-charcoal/70 leading-relaxed">
-                      {t.quote}
-                    </blockquote>
+                    <Quote text={t.quote} />
                   </figure>
                 </div>
               ))}

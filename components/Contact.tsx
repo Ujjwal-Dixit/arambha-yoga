@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, FormEvent } from "react";
 import { site } from "@/lib/site";
-import { getDayType, slotsFor, todayInIST } from "@/lib/schedule";
+import { DAY_LABELS, getDayType, slotsFor, todayInIST, type Schedule } from "@/lib/schedule";
 
 const inputClass =
   "w-full px-4 py-2.5 rounded-xl border border-parchment bg-cream/50 text-sm text-charcoal placeholder:text-charcoal/30 focus:outline-none focus:ring-2 focus:ring-sage/40 focus:border-sage transition";
@@ -24,7 +24,8 @@ function WhatsAppIcon({ className }: { className?: string }) {
   );
 }
 
-export default function Contact() {
+/** `schedule` comes from the admin-managed timetable (see lib/db/content.ts). */
+export default function Contact({ schedule }: { schedule: Schedule }) {
   const [form, setForm] = useState<Enquiry>({
     name: "",
     phone: "",
@@ -45,7 +46,8 @@ export default function Contact() {
   }, []);
 
   const dayType = getDayType(form.date);
-  const availableSlots = slotsFor(dayType);
+  const availableSlots = slotsFor(schedule, dayType);
+  const closed = dayType !== null && availableSlots.length === 0;
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -81,10 +83,10 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-12 md:py-20 bg-cream">
+    <section id="contact" className="py-12 md:py-16 bg-cream">
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
-        <div className="text-center mb-8 md:mb-12">
+        <div className="text-center mb-8 md:mb-10">
           <p className="text-xs font-medium tracking-[0.2em] uppercase text-sage mb-3">
             Get In Touch
           </p>
@@ -97,10 +99,10 @@ export default function Contact() {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-10">
           {/* Info */}
-          <div className="space-y-8">
-            <div className="bg-white rounded-2xl p-8 border border-parchment shadow-sm">
+          <div className="space-y-6">
+            <div className="bg-white rounded-2xl p-7 border border-parchment shadow-sm">
               <h3 className="font-display text-xl font-semibold text-forest mb-6">
                 Find Us
               </h3>
@@ -110,9 +112,8 @@ export default function Contact() {
                   <div>
                     <p className="font-medium text-forest text-sm mb-0.5">Address</p>
                     <p className="text-charcoal/65 text-sm leading-relaxed">
-                      401 Raghava Plaza,<br />
-                      Kondapur Hi Tension Line,<br />
-                      Raghvendra Colony, Hyderabad
+                      {site.addressLines[0]},<br />
+                      {site.addressLines[1]}
                     </p>
                   </div>
                 </div>
@@ -143,12 +144,12 @@ export default function Contact() {
             </div>
 
             {/* Map placeholder */}
-            <div className="bg-white rounded-2xl overflow-hidden border border-parchment shadow-sm h-52 flex items-center justify-center">
+            <div className="bg-white rounded-2xl overflow-hidden border border-parchment shadow-sm h-40 flex items-center justify-center">
               <div className="text-center text-charcoal/40">
                 <div className="text-3xl mb-2">🗺</div>
-                <p className="text-sm">Kondapur, Hyderabad</p>
+                <p className="text-sm">{site.addressLines.join(", ")}</p>
                 <a
-                  href="https://maps.google.com/?q=Kondapur+Hi+Tension+Line+Raghvendra+Colony+Hyderabad"
+                  href={site.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-2 inline-block text-xs text-forest hover:underline"
@@ -160,7 +161,7 @@ export default function Contact() {
           </div>
 
           {/* Form */}
-          <div className="bg-white rounded-2xl p-8 border border-parchment shadow-sm">
+          <div className="bg-white rounded-2xl p-7 border border-parchment shadow-sm">
             <h3 className="font-display text-xl font-semibold text-forest mb-6">
               Book / Send an Enquiry
             </h3>
@@ -291,10 +292,13 @@ export default function Contact() {
                   <div>
                     <label className="block text-xs font-medium text-forest mb-1.5">Preferred Time Slot</label>
 
-                    {dayType === "sunday" ? (
+                    {closed ? (
                       <div className="w-full px-4 py-2.5 rounded-xl border border-amber-200 bg-amber-50 text-sm text-amber-700 flex items-center gap-2">
                         <span>🙏</span>
-                        <span>No classes on Sundays</span>
+                        <span>
+                          No classes on{" "}
+                          {dayType === "weekday" ? "weekdays" : `${DAY_LABELS[dayType]}s`}
+                        </span>
                       </div>
                     ) : (
                       <select

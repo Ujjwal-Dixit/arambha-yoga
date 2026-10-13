@@ -59,7 +59,7 @@ export default function Navbar() {
             alt="Arambha Yoga & Wellness"
             width={320}
             height={248}
-            sizes="(max-width: 768px) 62px, 72px"
+            sizes="(max-width: 768px) 62px, (min-width: 1800px) 88px, 72px"
             className="h-12 md:h-14 w-auto object-contain"
             priority
           />

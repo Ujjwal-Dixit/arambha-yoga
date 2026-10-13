@@ -126,7 +126,7 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Arambha Yoga & Wellness. All
             rights reserved.
           </p>
-          <p>401 Raghava Plaza, Kondapur, Hyderabad</p>
+          <p>{site.addressLines.join(", ")}</p>
         </div>
       </div>
     </footer>

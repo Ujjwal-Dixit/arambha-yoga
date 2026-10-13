@@ -1,20 +1,45 @@
 /**
- * Class schedule rules — shared by the enquiry form and the API route so the
- * browser and the server can never disagree about what is bookable.
+ * Class schedule rules — shared by the enquiry form, the API route and the
+ * admin timetable editor so the browser and the server can never disagree
+ * about what is bookable. The slots themselves live in the database
+ * (class_slots) and are edited from the admin dashboard.
  */
 
-export const WEEKDAY_SLOTS = [
-  "5:30 AM",
-  "6:30 AM",
-  "7:30 AM",
-  "8:30 AM",
-  "5:00 PM",
-  "6:00 PM",
-] as const;
-
-export const SATURDAY_SLOTS = ["7:30 AM"] as const;
-
 export type DayType = "weekday" | "saturday" | "sunday";
+
+export const DAY_TYPES: readonly DayType[] = ["weekday", "saturday", "sunday"];
+
+export const DAY_LABELS: Record<DayType, string> = {
+  weekday: "Monday – Friday",
+  saturday: "Saturday",
+  sunday: "Sunday",
+};
+
+/** Slot times per day type, 24-hour "HH:MM". An empty list means closed. */
+export type Schedule = Record<DayType, string[]>;
+
+/** Used when no database is configured, and as the seed timetable. */
+export const DEFAULT_SCHEDULE: Schedule = {
+  weekday: ["05:30", "06:30", "07:30", "08:30", "17:00", "18:00"],
+  saturday: ["07:30"],
+  sunday: [],
+};
+
+export const MAX_SLOTS_PER_DAY = 16;
+
+const HH_MM = /^([01]\d|2[0-3]):[0-5]\d$/;
+
+export function isValidTime(time: string): boolean {
+  return HH_MM.test(time);
+}
+
+/** "06:30" → "6:30 AM". This label is what the form shows and submits. */
+export function formatSlot(time: string): string {
+  const [h, m] = time.split(":").map(Number);
+  const suffix = h < 12 ? "AM" : "PM";
+  const hour = h % 12 === 0 ? 12 : h % 12;
+  return `${hour}:${String(m).padStart(2, "0")} ${suffix}`;
+}
 
 /** Today in IST as YYYY-MM-DD. en-CA formats as ISO, which <input type="date"> wants. */
 export function todayInIST(): string {
@@ -31,10 +56,9 @@ export function getDayType(dateStr: string): DayType | null {
   return "weekday";
 }
 
-export function slotsFor(dayType: DayType | null): readonly string[] {
-  if (dayType === "weekday") return WEEKDAY_SLOTS;
-  if (dayType === "saturday") return SATURDAY_SLOTS;
-  return [];
+/** Display labels of the bookable slots for a day type. */
+export function slotsFor(schedule: Schedule, dayType: DayType | null): string[] {
+  return dayType ? schedule[dayType].map(formatSlot) : [];
 }
 
 export function formatDate(dateStr: string): string {

@@ -37,7 +37,7 @@ export default async function AdminLoginPage({
         </p>
         <h1 className="font-display text-2xl font-bold text-forest mb-2">Welcome back</h1>
         <p className="text-sm text-charcoal/60 mb-7">
-          Sign in to update promotions and offers on the website.
+          Sign in to update offers, photos, reviews and class timings on the website.
         </p>
 
         {error && (

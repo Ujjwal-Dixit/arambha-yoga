@@ -48,31 +48,29 @@ const audience = [
   },
 ];
 
-// Batch details — to be confirmed by the studio
-const details = [
-  { label: "Next Batch", value: "To be announced" },
-  { label: "Duration", value: "To be announced" },
-  { label: "Schedule", value: "To be announced" },
+// Batch details. An entry with an href renders its value as a link.
+const details: { label: string; value: string; href?: string }[] = [
+  { label: "Batch Enquiry", value: "Enquire now →", href: "/#contact" },
+  { label: "Duration", value: "200 hrs (50 days)" },
+  { label: "Mode", value: "Online / Offline" },
   { label: "Batch Size", value: "Limited seats" },
-  { label: "Investment", value: "On enquiry" },
-  { label: "Language", value: "English" },
 ];
 
 export default function TeacherTraining() {
   return (
     <>
       {/* Overview */}
-      <section className="py-12 md:py-20 bg-white">
+      <section className="pt-8 pb-10 md:pt-10 md:pb-12 bg-white">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+          <div className="grid md:grid-cols-[3fr_2fr] gap-10 md:gap-12 items-center md:items-stretch">
             <div>
               <p className="text-xs font-medium tracking-[0.2em] uppercase text-sage mb-3">
                 The Programme
               </p>
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-forest leading-tight mb-6">
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-forest leading-tight mb-5">
                 200-Hour Yoga Teacher Training
               </h2>
-              <div className="space-y-4 text-charcoal/70 leading-relaxed">
+              <div className="space-y-3 text-charcoal/70 leading-relaxed">
                 <p>
                   Our 200-hour programme is the foundation of a teaching
                   practice — a complete grounding in technique, anatomy,
@@ -90,7 +88,7 @@ export default function TeacherTraining() {
                 </p>
               </div>
 
-              <div className="mt-8 flex flex-wrap gap-3">
+              <div className="mt-6 flex flex-wrap gap-3">
                 <span className="text-xs font-medium px-3 py-1.5 rounded-full bg-sage-light/30 text-forest-mid border border-sage/25">
                   200 Hours
                 </span>
@@ -103,110 +101,24 @@ export default function TeacherTraining() {
               </div>
             </div>
 
-            {/* Centre photo — placeholder */}
-            <div>
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-[#1a4731] via-[#2d6a4f] to-[#52b788] flex items-center justify-center">
-                <div
-                  className="absolute inset-0 opacity-10"
-                  style={{
-                    backgroundImage: `radial-gradient(circle at 20% 50%, white 1px, transparent 1px),
-                                      radial-gradient(circle at 80% 20%, white 1px, transparent 1px)`,
-                    backgroundSize: "60px 60px",
-                  }}
-                  aria-hidden="true"
-                />
-                <div className="relative text-center text-white/90 px-8">
-                  <div className="text-5xl mb-3">🏛️</div>
-                  <p className="text-[10px] tracking-[0.25em] uppercase text-white/50 mb-2 font-medium">
-                    📷 Photo placeholder
-                  </p>
-                  <p className="font-display text-xl font-semibold">
-                    Our Training Space
-                  </p>
-                  <p className="text-white/70 text-sm mt-1">
-                    Kondapur, Hyderabad
-                  </p>
-                </div>
-              </div>
-              <p className="text-center mt-3 text-xs text-charcoal/40 italic">
-                Replace with a photo of the centre
-              </p>
+            {/* Centre photo — on wider screens it matches the text column's
+                height so the whole overview fits above the fold on laptops. */}
+            <div className="relative w-full max-w-[22.5rem] aspect-[7/8] md:aspect-auto md:min-h-[20rem] mx-auto rounded-2xl overflow-hidden bg-parchment">
+              <Image
+                src="/teacher-training.jpg"
+                alt="A teacher adjusting students in three-legged downward dog during a class at Arambha Yoga & Wellness"
+                fill
+                sizes="(max-width: 480px) 100vw, 360px"
+                className="object-cover object-[center_45%]"
+              />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Curriculum */}
-      <section className="py-12 md:py-20 bg-cream">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-8 md:mb-12">
-            <p className="text-xs font-medium tracking-[0.2em] uppercase text-sage mb-3">
-              What You&apos;ll Study
-            </p>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-forest leading-tight mb-4">
-              The Curriculum
-            </h2>
-            <p className="text-charcoal/60 max-w-xl mx-auto">
-              Five areas of study, mapped to the Yoga Alliance educational
-              categories for a Registered Yoga School.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {curriculum.map((c) => (
-              <div
-                key={c.n}
-                className="bg-white rounded-2xl p-6 border border-parchment shadow-sm hover:shadow-md transition-shadow duration-300"
-              >
-                <div className="font-display text-3xl font-bold text-sage/40 leading-none mb-3">
-                  {c.n}
-                </div>
-                <h3 className="font-display font-semibold text-forest text-lg mb-2 leading-snug">
-                  {c.title}
-                </h3>
-                <p className="text-sm text-charcoal/65 leading-relaxed">
-                  {c.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Who it's for */}
-      <section className="py-12 md:py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-8 md:mb-12">
-            <p className="text-xs font-medium tracking-[0.2em] uppercase text-sage mb-3">
-              Who It&apos;s For
-            </p>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-forest leading-tight">
-              Is This Training For You?
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {audience.map((a) => (
-              <div
-                key={a.title}
-                className="text-center p-6 rounded-2xl border border-parchment bg-cream/40"
-              >
-                <div className="text-3xl mb-4">{a.icon}</div>
-                <h3 className="font-display font-semibold text-forest text-lg mb-2">
-                  {a.title}
-                </h3>
-                <p className="text-sm text-charcoal/65 leading-relaxed">
-                  {a.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Details + faculty */}
-      <section className="py-12 md:py-20 bg-cream">
-        <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-10 lg:gap-16">
+      <section className="py-12 md:py-16 bg-cream">
+        <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 lg:items-center gap-10 lg:gap-16">
           <div>
             <p className="text-xs font-medium tracking-[0.2em] uppercase text-sage mb-3">
               Course Details
@@ -220,18 +132,27 @@ export default function TeacherTraining() {
                   key={d.label}
                   className="flex items-center justify-between gap-4 px-5 py-3.5"
                 >
-                  <dt className="text-[11px] font-semibold tracking-widest uppercase text-charcoal/40">
+                  <dt className="text-[0.6875rem] font-semibold tracking-widest uppercase text-charcoal/40">
                     {d.label}
                   </dt>
                   <dd className="text-sm font-medium text-forest text-right">
-                    {d.value}
+                    {d.href ? (
+                      <Link
+                        href={d.href}
+                        className="hover:text-sage underline underline-offset-4 decoration-sage/40 transition-colors"
+                      >
+                        {d.value}
+                      </Link>
+                    ) : (
+                      d.value
+                    )}
                   </dd>
                 </div>
               ))}
             </dl>
             <p className="mt-3 text-xs text-charcoal/45 italic">
-              Dates and fees are confirmed on enquiry — get in touch and
-              we&apos;ll send you the full prospectus.
+              Batch dates, timings and fees are shared on enquiry — send us a
+              message and we&apos;ll reply with the full prospectus.
             </p>
           </div>
 
@@ -290,6 +211,74 @@ export default function TeacherTraining() {
                 />
               </svg>
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Curriculum */}
+      <section className="py-12 md:py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-8 md:mb-10">
+            <p className="text-xs font-medium tracking-[0.2em] uppercase text-sage mb-3">
+              What You&apos;ll Study
+            </p>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-forest leading-tight mb-4">
+              The Curriculum
+            </h2>
+            <p className="text-charcoal/60 max-w-xl mx-auto">
+              Five areas of study, mapped to the Yoga Alliance educational
+              categories for a Registered Yoga School.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {curriculum.map((c) => (
+              <div
+                key={c.n}
+                className="bg-white rounded-2xl p-6 border border-parchment shadow-sm hover:shadow-md transition-shadow duration-300"
+              >
+                <div className="font-display text-3xl font-bold text-sage/40 leading-none mb-3">
+                  {c.n}
+                </div>
+                <h3 className="font-display font-semibold text-forest text-lg mb-2 leading-snug">
+                  {c.title}
+                </h3>
+                <p className="text-sm text-charcoal/65 leading-relaxed">
+                  {c.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Who it's for */}
+      <section className="py-12 md:py-16 bg-cream">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-8 md:mb-10">
+            <p className="text-xs font-medium tracking-[0.2em] uppercase text-sage mb-3">
+              Who It&apos;s For
+            </p>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-forest leading-tight">
+              Is This Training For You?
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {audience.map((a) => (
+              <div
+                key={a.title}
+                className="text-center p-6 rounded-2xl border border-parchment bg-white"
+              >
+                <div className="text-3xl mb-4">{a.icon}</div>
+                <h3 className="font-display font-semibold text-forest text-lg mb-2">
+                  {a.title}
+                </h3>
+                <p className="text-sm text-charcoal/65 leading-relaxed">
+                  {a.desc}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
