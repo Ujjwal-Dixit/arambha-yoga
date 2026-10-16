@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export type Teacher = {
+type Teacher = {
   name: string;
   role: string;
   image: string;
@@ -10,7 +10,7 @@ export type Teacher = {
   emphasis: string;
 };
 
-export const teachers: Teacher[] = [
+const teachers: Teacher[] = [
   {
     name: "Giri Yadav",
     role: "Founder & Lead Instructor",
@@ -63,7 +63,7 @@ export const teachers: Teacher[] = [
     image: "/teachers/sowjanya-rao.jpg",
     meta: [
       { label: "Certification", value: "RYT 200" },
-      { label: "Experience", value: "2 years" },
+      { label: "Experience", value: "3 years" },
     ],
     bio: [
       "Sowjanya Rao is a certified 200-Hour Yoga Teacher with 2 years of teaching experience. She is dedicated to helping individuals improve their strength, flexibility, and overall well-being through safe, mindful, and accessible yoga practices.",

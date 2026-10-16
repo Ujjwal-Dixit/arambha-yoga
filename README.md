@@ -6,8 +6,8 @@ The studio website (Next.js 14, Tailwind 4) with an owner dashboard at `/admin`.
 
 | Tab | Controls |
 |---|---|
-| Promotions | "Upcoming Classes" cards on the home page |
-| Offer Posters | Poster images in the "Current Offers" panel beside the main heading |
+| Promotions | Offer and event cards just below the main heading on the home page |
+| Offer Posters | Poster images in the slider beside the main heading |
 | Gallery | Photos in the "Life at Arambha" slideshow |
 | Reviews | "Voices from Our Community" (copied from Google reviews) |
 | Class Timings | Time slots on the enquiry form, per day; a day with no slots is closed |

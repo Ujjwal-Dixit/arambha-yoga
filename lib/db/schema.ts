@@ -32,7 +32,7 @@ export const promotions = pgTable("promotions", {
 
 export type PromotionRow = typeof promotions.$inferSelect;
 
-/** Poster images shown in the "Current Offers" panel beside the home hero. */
+/** Poster images in the slider beside the home hero. */
 export const offerPosters = pgTable("offer_posters", {
   id: serial("id").primaryKey(),
   imageUrl: text("image_url").notNull(),
@@ -89,5 +89,3 @@ export const classSlots = pgTable("class_slots", {
   /** 24-hour "HH:MM"; shown as e.g. "6:30 AM". */
   time: text("time").notNull(),
 });
-
-export type ClassSlotRow = typeof classSlots.$inferSelect;

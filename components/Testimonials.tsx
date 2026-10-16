@@ -221,7 +221,7 @@ export default function Testimonials({ reviews }: { reviews: Review[] }) {
             Ready to write your own story?
           </p>
           <a
-            href="#contact"
+            href="#enquiry"
             className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-forest text-white font-medium hover:bg-forest-mid transition-colors shadow-lg shadow-forest/20"
           >
             Start Your Journey Today

@@ -127,7 +127,7 @@ export default function Services() {
             Not sure which class is right for you?
           </p>
           <a
-            href="#contact"
+            href="#enquiry"
             className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-forest text-white font-medium hover:bg-forest-mid transition-colors shadow-lg shadow-forest/20"
           >
             Talk to Us — We&apos;ll Guide You

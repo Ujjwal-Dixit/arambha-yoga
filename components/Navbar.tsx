@@ -4,35 +4,8 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { site } from "@/lib/site";
-
-const links = [
-  { label: "Home", href: "/#home" },
-  { label: "About", href: "/#about" },
-  { label: "Services", href: "/#services" },
-  { label: "Teachers", href: "/teachers" },
-  { label: "Teacher Courses", href: "/teacher-courses" },
-  { label: "Contact", href: "/#contact" },
-];
-
-function PhoneIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-      />
-    </svg>
-  );
-}
+import { PhoneIcon } from "@/components/icons";
+import { NAV_LINKS, site } from "@/lib/site";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -67,7 +40,7 @@ export default function Navbar() {
 
         {/* Desktop links */}
         <ul className="hidden lg:flex items-center gap-5 xl:gap-6">
-          {links.map((l) => {
+          {NAV_LINKS.map((l) => {
             const active = pathname === l.href;
             return (
               <li key={l.href}>
@@ -97,7 +70,7 @@ export default function Navbar() {
           </a>
 
           <Link
-            href="/#contact"
+            href="/#enquiry"
             className="inline-flex items-center px-5 py-2.5 rounded-full bg-forest text-white text-sm font-medium tracking-wide hover:bg-forest-mid transition-colors whitespace-nowrap"
           >
             Book a Class
@@ -138,7 +111,7 @@ export default function Navbar() {
       {/* Mobile menu */}
       {menuOpen && (
         <div className="lg:hidden bg-white border-t border-parchment px-6 py-4 flex flex-col gap-4">
-          {links.map((l) => {
+          {NAV_LINKS.map((l) => {
             const active = pathname === l.href;
             return (
               <Link
@@ -165,7 +138,7 @@ export default function Navbar() {
           </a>
 
           <Link
-            href="/#contact"
+            href="/#enquiry"
             onClick={() => setMenuOpen(false)}
             className="mt-1 text-center px-5 py-2.5 rounded-full bg-forest text-white text-sm font-medium"
           >

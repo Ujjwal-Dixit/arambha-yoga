@@ -16,7 +16,7 @@ import { promotions } from "@/lib/db/schema";
 import { validatePromotion } from "@/lib/promotions";
 
 /**
- * Promotion cards ("Upcoming Classes"). Every action re-checks the session
+ * Promotion cards on the home page. Every action re-checks the session
  * itself — see lib/admin/actions.ts.
  */
 

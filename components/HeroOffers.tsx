@@ -22,11 +22,6 @@ export default function HeroOffers({ offers }: { offers: OfferPoster[] }) {
 
   return (
     <div className="w-full max-w-[20rem] md:w-[17.5rem] lg:max-w-none lg:w-auto">
-      <p className="flex items-center gap-2 mb-3 text-[0.6875rem] font-semibold tracking-[0.2em] uppercase text-sage">
-        <span className="w-1.5 h-1.5 rounded-full bg-sage animate-pulse" aria-hidden="true" />
-        Current Offers
-      </p>
-
       {/* Sized from the screen height on desktop so it never pushes the hero
           past the fold. Posters slide rather than cross-fade: two text-heavy
           posters blended mid-fade are unreadable. Each is contained over a
@@ -43,7 +38,7 @@ export default function HeroOffers({ offers }: { offers: OfferPoster[] }) {
           {offers.map((o, i) => (
             <a
               key={o.src}
-              href="#contact"
+              href="#enquiry"
               tabIndex={i === current ? 0 : -1}
               aria-hidden={i === current ? undefined : true}
               className="group relative w-full h-full shrink-0 overflow-hidden"
@@ -70,7 +65,7 @@ export default function HeroOffers({ offers }: { offers: OfferPoster[] }) {
       </div>
 
       {offers.length > 1 && (
-        <div className="flex gap-2 mt-4">
+        <div className="flex justify-center gap-2 mt-4">
           {offers.map((_, i) => (
             <button
               key={i}
@@ -85,15 +80,6 @@ export default function HeroOffers({ offers }: { offers: OfferPoster[] }) {
           ))}
         </div>
       )}
-
-      <p className="mt-3">
-        <a
-          href="#contact"
-          className="text-sm font-medium text-forest underline underline-offset-4 decoration-sage/40 hover:text-sage transition-colors"
-        >
-          Enquire about these offers →
-        </a>
-      </p>
     </div>
   );
 }

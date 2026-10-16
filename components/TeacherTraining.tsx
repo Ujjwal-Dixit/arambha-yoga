@@ -50,7 +50,7 @@ const audience = [
 
 // Batch details. An entry with an href renders its value as a link.
 const details: { label: string; value: string; href?: string }[] = [
-  { label: "Batch Enquiry", value: "Enquire now →", href: "/#contact" },
+  { label: "Book Your Batch", value: "Reserve your seat →", href: "/#enquiry" },
   { label: "Duration", value: "200 hrs (50 days)" },
   { label: "Mode", value: "Online / Offline" },
   { label: "Batch Size", value: "Limited seats" },
@@ -152,7 +152,7 @@ export default function TeacherTraining() {
             </dl>
             <p className="mt-3 text-xs text-charcoal/45 italic">
               Batch dates, timings and fees are shared on enquiry — send us a
-              message and we&apos;ll reply with the full prospectus.
+              message and we&apos;ll reply with the full course details.
             </p>
           </div>
 
@@ -299,18 +299,12 @@ export default function TeacherTraining() {
           </h2>
           <p className="text-charcoal/60 mb-7 leading-relaxed">
             Tell us a little about your practice and your goals, and we&apos;ll
-            send you the full course prospectus and upcoming batch dates.
+            share the course details and upcoming batch dates.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link
-              href="/#contact"
-              className="px-7 py-3.5 rounded-full bg-forest text-white font-medium tracking-wide hover:bg-forest-mid transition-colors shadow-lg shadow-forest/20"
-            >
-              Request the Prospectus
-            </Link>
             <a
               href={site.phoneHref}
-              className="px-7 py-3.5 rounded-full border-2 border-forest text-forest font-medium tracking-wide hover:bg-forest hover:text-white transition-colors"
+              className="px-7 py-3.5 rounded-full bg-forest text-white font-medium tracking-wide hover:bg-forest-mid transition-colors shadow-lg shadow-forest/20"
             >
               {`Call ${site.phoneDisplay}`}
             </a>

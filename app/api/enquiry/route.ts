@@ -61,7 +61,10 @@ export async function POST(request: Request) {
   if (name.length < 2 || name.length > 80) {
     return bad("Please enter your name.");
   }
-  if (phone && !/^[+\d][\d\s()-]{6,19}$/.test(phone)) {
+  if (!phone) {
+    return bad("Please enter your phone number.");
+  }
+  if (!/^[+\d][\d\s()-]{6,19}$/.test(phone)) {
     return bad("That phone number doesn't look right.");
   }
   if (service.length > 80) {

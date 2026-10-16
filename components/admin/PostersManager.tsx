@@ -35,7 +35,7 @@ export default function PostersManager({ posters, today }: { posters: AdminPoste
         title="Offer Posters"
         description={
           <>
-            Poster images in the &ldquo;Current Offers&rdquo; panel beside the main heading on the home page. Live
+            Poster images in the slider beside the main heading on the home page. Live
             posters rotate in the order below; clicking one takes visitors to the enquiry form.
           </>
         }
@@ -64,7 +64,7 @@ export default function PostersManager({ posters, today }: { posters: AdminPoste
 
       {posters.length === 0 && editing !== "new" ? (
         <EmptyState icon="🖼️" title="No offer posters yet">
-          The &ldquo;Current Offers&rdquo; panel stays hidden until a poster is live.
+          The poster slider stays hidden until a poster is live.
         </EmptyState>
       ) : (
         <ul className="space-y-3">

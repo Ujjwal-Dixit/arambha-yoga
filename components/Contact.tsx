@@ -2,7 +2,13 @@
 
 import { useState, useEffect, useRef, FormEvent } from "react";
 import { site } from "@/lib/site";
-import { DAY_LABELS, getDayType, slotsFor, todayInIST, type Schedule } from "@/lib/schedule";
+import {
+  DAY_LABELS,
+  getDayType,
+  slotsFor,
+  todayInIST,
+  type Schedule,
+} from "@/lib/schedule";
 
 const inputClass =
   "w-full px-4 py-2.5 rounded-xl border border-parchment bg-cream/50 text-sm text-charcoal placeholder:text-charcoal/30 focus:outline-none focus:ring-2 focus:ring-sage/40 focus:border-sage transition";
@@ -16,9 +22,23 @@ type Enquiry = {
   message: string;
 };
 
+const EMPTY_ENQUIRY: Enquiry = {
+  name: "",
+  phone: "",
+  service: "",
+  date: "",
+  timeSlot: "",
+  message: "",
+};
+
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
-    <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <svg
+      className={className}
+      fill="currentColor"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 016.99 2.896 9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.885-9.887 9.885M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.359.101 11.945c0 2.096.547 4.142 1.588 5.945L0 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.58 0 11.94-5.359 11.943-11.945a11.87 11.87 0 00-3.416-8.4" />
     </svg>
   );
@@ -26,15 +46,10 @@ function WhatsAppIcon({ className }: { className?: string }) {
 
 /** `schedule` comes from the admin-managed timetable (see lib/db/content.ts). */
 export default function Contact({ schedule }: { schedule: Schedule }) {
-  const [form, setForm] = useState<Enquiry>({
-    name: "",
-    phone: "",
-    service: "",
-    date: "",
-    timeSlot: "",
-    message: "",
-  });
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [form, setForm] = useState<Enquiry>(EMPTY_ENQUIRY);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
+    "idle",
+  );
   const [website, setWebsite] = useState(""); // honeypot
   const dateRef = useRef<HTMLInputElement>(null);
 
@@ -50,7 +65,9 @@ export default function Contact({ schedule }: { schedule: Schedule }) {
   const closed = dayType !== null && availableSlots.length === 0;
 
   function handleChange(
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
   ) {
     const { name, value } = e.target;
     // Reset time slot whenever date changes so stale selection is cleared
@@ -72,7 +89,7 @@ export default function Contact({ schedule }: { schedule: Schedule }) {
       });
       if (!res.ok) throw new Error(String(res.status));
       setStatus("sent");
-      setForm({ name: "", phone: "", service: "", date: "", timeSlot: "", message: "" });
+      setForm(EMPTY_ENQUIRY);
     } catch {
       setStatus("error");
     }
@@ -108,9 +125,13 @@ export default function Contact({ schedule }: { schedule: Schedule }) {
               </h3>
               <div className="space-y-5">
                 <div className="flex gap-4 items-start">
-                  <div className="mt-1 w-9 h-9 rounded-full bg-sage-light/50 flex items-center justify-center shrink-0">📍</div>
+                  <div className="mt-1 w-9 h-9 rounded-full bg-sage-light/50 flex items-center justify-center shrink-0">
+                    📍
+                  </div>
                   <div>
-                    <p className="font-medium text-forest text-sm mb-0.5">Address</p>
+                    <p className="font-medium text-forest text-sm mb-0.5">
+                      Address
+                    </p>
                     <p className="text-charcoal/65 text-sm leading-relaxed">
                       {site.addressLines[0]},<br />
                       {site.addressLines[1]}
@@ -118,18 +139,29 @@ export default function Contact({ schedule }: { schedule: Schedule }) {
                   </div>
                 </div>
                 <div className="flex gap-4 items-start">
-                  <div className="mt-1 w-9 h-9 rounded-full bg-sage-light/50 flex items-center justify-center shrink-0">📞</div>
+                  <div className="mt-1 w-9 h-9 rounded-full bg-sage-light/50 flex items-center justify-center shrink-0">
+                    📞
+                  </div>
                   <div>
-                    <p className="font-medium text-forest text-sm mb-0.5">Phone</p>
-                    <a href={site.phoneHref} className="text-charcoal/65 text-sm hover:text-forest transition-colors">
+                    <p className="font-medium text-forest text-sm mb-0.5">
+                      Phone
+                    </p>
+                    <a
+                      href={site.phoneHref}
+                      className="text-charcoal/65 text-sm hover:text-forest transition-colors"
+                    >
                       {site.phoneDisplay}
                     </a>
                   </div>
                 </div>
                 <div className="flex gap-4 items-start">
-                  <div className="mt-1 w-9 h-9 rounded-full bg-sage-light/50 flex items-center justify-center shrink-0">📸</div>
+                  <div className="mt-1 w-9 h-9 rounded-full bg-sage-light/50 flex items-center justify-center shrink-0">
+                    📸
+                  </div>
                   <div>
-                    <p className="font-medium text-forest text-sm mb-0.5">Instagram</p>
+                    <p className="font-medium text-forest text-sm mb-0.5">
+                      Instagram
+                    </p>
                     <a
                       href={site.instagramUrl}
                       target="_blank"
@@ -160,10 +192,11 @@ export default function Contact({ schedule }: { schedule: Schedule }) {
             </div>
           </div>
 
-          {/* Form */}
-          <div className="bg-white rounded-2xl p-7 border border-parchment shadow-sm">
+          {/* Form — first on phones, where the cards stack, so links to
+              #enquiry land on it rather than on "Find Us" */}
+          <div id="enquiry" className="scroll-mt-24 order-first lg:order-none bg-white rounded-2xl p-7 border border-parchment shadow-sm">
             <h3 className="font-display text-xl font-semibold text-forest mb-6">
-              Book / Send an Enquiry
+              Book a class
             </h3>
 
             {status === "sent" ? (
@@ -226,7 +259,9 @@ export default function Contact({ schedule }: { schedule: Schedule }) {
                 {/* Name + Phone */}
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-medium text-forest mb-1.5">Full Name *</label>
+                    <label className="block text-xs font-medium text-forest mb-1.5">
+                      Full Name *
+                    </label>
                     <input
                       type="text"
                       name="name"
@@ -239,13 +274,14 @@ export default function Contact({ schedule }: { schedule: Schedule }) {
                   </div>
                   <div>
                     <label className="block text-xs font-medium text-forest mb-1.5">
-                      Phone <span className="text-charcoal/40 font-normal">(if you prefer a call)</span>
+                      Phone *
                     </label>
                     <input
                       type="tel"
                       name="phone"
                       value={form.phone}
                       onChange={handleChange}
+                      required
                       placeholder="+91 ..."
                       className={inputClass}
                     />
@@ -254,8 +290,15 @@ export default function Contact({ schedule }: { schedule: Schedule }) {
 
                 {/* Class */}
                 <div>
-                  <label className="block text-xs font-medium text-forest mb-1.5">Interested In</label>
-                  <select name="service" value={form.service} onChange={handleChange} className={inputClass}>
+                  <label className="block text-xs font-medium text-forest mb-1.5">
+                    Interested In
+                  </label>
+                  <select
+                    name="service"
+                    value={form.service}
+                    onChange={handleChange}
+                    className={inputClass}
+                  >
                     <option value="">Select a class...</option>
                     <option>Wall Yoga</option>
                     <option>Chair Yoga</option>
@@ -279,7 +322,9 @@ export default function Contact({ schedule }: { schedule: Schedule }) {
                 {/* Date + Time */}
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-medium text-forest mb-1.5">Preferred Date</label>
+                    <label className="block text-xs font-medium text-forest mb-1.5">
+                      Preferred Date
+                    </label>
                     <input
                       type="date"
                       name="date"
@@ -290,14 +335,18 @@ export default function Contact({ schedule }: { schedule: Schedule }) {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-forest mb-1.5">Preferred Time Slot</label>
+                    <label className="block text-xs font-medium text-forest mb-1.5">
+                      Preferred Time Slot
+                    </label>
 
                     {closed ? (
                       <div className="w-full px-4 py-2.5 rounded-xl border border-amber-200 bg-amber-50 text-sm text-amber-700 flex items-center gap-2">
                         <span>🙏</span>
                         <span>
                           No classes on{" "}
-                          {dayType === "weekday" ? "weekdays" : `${DAY_LABELS[dayType]}s`}
+                          {dayType === "weekday"
+                            ? "weekdays"
+                            : `${DAY_LABELS[dayType]}s`}
                         </span>
                       </div>
                     ) : (
@@ -312,7 +361,9 @@ export default function Contact({ schedule }: { schedule: Schedule }) {
                           {dayType ? "Select a slot..." : "Pick a date first"}
                         </option>
                         {availableSlots.map((slot) => (
-                          <option key={slot} value={slot}>{slot}</option>
+                          <option key={slot} value={slot}>
+                            {slot}
+                          </option>
                         ))}
                       </select>
                     )}
@@ -321,7 +372,9 @@ export default function Contact({ schedule }: { schedule: Schedule }) {
 
                 {/* Message */}
                 <div>
-                  <label className="block text-xs font-medium text-forest mb-1.5">Message</label>
+                  <label className="block text-xs font-medium text-forest mb-1.5">
+                    Message
+                  </label>
                   <textarea
                     name="message"
                     value={form.message}

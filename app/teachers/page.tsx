@@ -49,7 +49,7 @@ export default function TeachersPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
-                href="/#contact"
+                href="/#enquiry"
                 className="px-7 py-3.5 rounded-full bg-forest text-white font-medium tracking-wide hover:bg-forest-mid transition-colors shadow-lg shadow-forest/20"
               >
                 Book a Class

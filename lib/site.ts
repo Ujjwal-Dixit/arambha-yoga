@@ -38,7 +38,6 @@ export const site = {
   /** Opens a WhatsApp chat with the studio. */
   whatsappHref: `https://wa.me/${digits}`,
 
-
   instagramHandle: "@arambha.yoga",
   instagramUrl: "https://www.instagram.com/arambha.yoga",
 
@@ -48,3 +47,13 @@ export const site = {
   /** Google Maps link to the studio's exact location. */
   mapsUrl: "https://maps.app.goo.gl/36i1rCxQKWAXtYze9",
 } as const;
+
+/** Main site navigation, shared by the navbar and footer. */
+export const NAV_LINKS = [
+  { label: "Home", href: "/#home" },
+  { label: "About", href: "/#about" },
+  { label: "Services", href: "/#services" },
+  { label: "Teachers", href: "/teachers" },
+  { label: "Teacher Courses", href: "/teacher-courses" },
+  { label: "Contact", href: "/#enquiry" },
+] as const;

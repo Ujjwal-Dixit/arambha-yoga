@@ -16,7 +16,7 @@ import {
   savePromotion,
   setPublished,
   type ActionResult,
-} from "@/app/admin/actions";
+} from "@/app/admin/promotion-actions";
 import {
   EMPTY_PROMOTION,
   LIMITS,
@@ -99,8 +99,8 @@ export default function PromotionsManager({
             Promotions
           </h1>
           <p className="text-sm text-charcoal/60 mt-1.5 max-w-xl">
-            Offers and events shown in the &ldquo;Upcoming Classes&rdquo; strip
-            on the home page. Live promotions appear in the order below.
+            Offers and events shown as cards just below the main heading on the
+            home page. Live promotions appear in the order below.
           </p>
         </div>
         {editing !== "new" && (
@@ -156,7 +156,7 @@ export default function PromotionsManager({
             No promotions yet
           </p>
           <p className="text-sm text-charcoal/55">
-            The &ldquo;Upcoming Classes&rdquo; strip stays hidden until
+            The promotion cards stay hidden on the home page until
             something is live.
           </p>
         </div>

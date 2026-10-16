@@ -25,8 +25,8 @@ export default function Hero({ offers }: { offers: OfferPoster[] }) {
           </p>
 
           <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-forest leading-tight mb-4 md:mb-5">
-            Wellness Begins
-            <span className="block text-forest-mid">Here</span>
+            Your Wellness Journey
+            <span className="block text-forest-mid">Begins Here</span>
           </h1>
 
           <p className="text-base md:text-lg text-charcoal/70 max-w-xl leading-relaxed mb-6 md:mb-8">
@@ -42,10 +42,10 @@ export default function Hero({ offers }: { offers: OfferPoster[] }) {
               Explore Classes
             </a>
             <a
-              href="#contact"
+              href="#enquiry"
               className="px-7 py-3 rounded-full border-2 border-forest text-forest font-medium tracking-wide hover:bg-forest hover:text-white transition-colors"
             >
-              Enquire Now
+              Book Now
             </a>
           </div>
 
